@@ -2,6 +2,14 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+        <AssemblyName>FlatBuffers.Standard</AssemblyName>
+        <SignAssembly>True</SignAssembly>
+        <AssemblyOriginatorKeyFile>jhl dev key.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <DefineConstants>$(DefineConstants);UNSAFE_BYTEBUFFER;BYTEBUFFER_NO_BOUNDS_CHECK</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup>

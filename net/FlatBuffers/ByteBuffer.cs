@@ -123,7 +123,7 @@ namespace FlatBuffers
     /// </summary>
     public class ByteBuffer
     {
-        private ByteBufferAllocator _buffer;
+        public ByteBufferAllocator _buffer;
         private int _pos;  // Must track start of the buffer.
 
         public ByteBuffer(ByteBufferAllocator allocator, int position)
@@ -290,10 +290,6 @@ namespace FlatBuffers
 
 #if !UNSAFE_BYTEBUFFER
         // Pre-allocated helper arrays for convertion.
-        private float[] floathelper = new[] { 0.0f };
-        private int[] inthelper = new[] { 0 };
-        private double[] doublehelper = new[] { 0.0 };
-        private ulong[] ulonghelper = new[] { 0UL };
 #endif // !UNSAFE_BYTEBUFFER
 
         // Helper functions for the unsafe version.
@@ -586,7 +582,8 @@ namespace FlatBuffers
         public void PutFloat(int offset, float value)
         {
             AssertOffsetAndLength(offset, sizeof(float));
-            floathelper[0] = value;
+            float[] floathelper = new[] { value };
+            int[] inthelper = new[] { 0 };
             Buffer.BlockCopy(floathelper, 0, inthelper, 0, sizeof(float));
             WriteLittleEndian(offset, sizeof(float), (ulong)inthelper[0]);
         }
@@ -594,7 +591,8 @@ namespace FlatBuffers
         public void PutDouble(int offset, double value)
         {
             AssertOffsetAndLength(offset, sizeof(double));
-            doublehelper[0] = value;
+            double[] doublehelper = new[] { value };
+            ulong[] ulonghelper = new[] { 0UL };
             Buffer.BlockCopy(doublehelper, 0, ulonghelper, 0, sizeof(double));
             WriteLittleEndian(offset, sizeof(double), ulonghelper[0]);
         }
@@ -783,7 +781,8 @@ namespace FlatBuffers
         public float GetFloat(int index)
         {
             int i = (int)ReadLittleEndian(index, sizeof(float));
-            inthelper[0] = i;
+            int[] inthelper = new[] { i };
+            float[] floathelper = new[] { 0.0f };
             Buffer.BlockCopy(inthelper, 0, floathelper, 0, sizeof(float));
             return floathelper[0];
         }
@@ -791,8 +790,9 @@ namespace FlatBuffers
         public double GetDouble(int index)
         {
             ulong i = ReadLittleEndian(index, sizeof(double));
-            // There's Int64BitsToDouble but it uses unsafe code internally.
-            ulonghelper[0] = i;
+      // There's Int64BitsToDouble but it uses unsafe code internally.
+            ulong[] ulonghelper = new[] { i };
+            double[] doublehelper = new[] { 0.0 };
             Buffer.BlockCopy(ulonghelper, 0, doublehelper, 0, sizeof(double));
             return doublehelper[0];
         }

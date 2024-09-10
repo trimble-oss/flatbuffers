@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>FlatBuffers.NET-Tekla</id>
+    <version>0.0.0-localbuild</version>
+    <title>FlatBuffers.NET</title>
+    <authors>Google Inc.</authors>
+    <owners>Google Inc.</owners>
+    <projectUrl>http://google.github.io/flatbuffers/</projectUrl>
+    <licenseUrl>http://google.github.io/flatbuffers/</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Efficient cross platform serialization library, developed by Google, build by Trimble Technology (.NET Standard 2.0)</description>
+    <copyright>Copyright 2020 Google Inc. All rights reserved.</copyright>
+    <tags>Google FlatBuffers .NET</tags>
+  </metadata>
+  <files>
+    <file src="..\net\FlatBuffers\bin\Release\netstandard2.0\FlatBuffers.Standard.dll" target="lib\netstandard2.0\" />
+    <file src="..\net\FlatBuffers\bin\Release\netstandard2.0\FlatBuffers.Standard.pdb" target="symbols\netstandard2.0\" />
+
+    <file src="FlatBuffers.NET-Tekla.props" target="build\native\" />
+  </files>
+</package>
